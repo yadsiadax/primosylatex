@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Final - CSS Grid</title>
+    <style>
+        /* 1. EL SALVAVIDAS (Box Model) */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: #2f3640;
+            color: #f5f6fa;
+            padding: 20px;
+        }
+
+        /* 2. EL CONTENEDOR GRID MAESTRO */
+        .grid-container {
+            display: grid;
+            gap: 15px; /* Separación perfecta en todas las direcciones */
+            
+            /* Definición de columnas: 
+               1fr (Publi Izq) | 3fr (Contenido) | 1fr (Publi Der) */
+            grid-template-columns: 1fr 3fr 1fr;
+            
+            /* DIBUJANDO EL LAYOUT (Aquí está la magia pura) */
+            grid-template-areas:
+                "header header header"
+                "nav nav nav"
+                "sidebar-izq main sidebar-der"
+                "footer footer footer";
+            
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: 90vh; 
+        }
+
+        /* 3. ASIGNACIÓN DE ÁREAS A LOS HIJOS */
+        .header {
+            grid-area: header;
+            background-color: #e1b12c;
+            color: #2f3640;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+        .nav {
+            grid-area: nav;
+            background-color: #44bd32;
+            padding: 15px;
+            /* Flexbox viviendo dentro de un Grid ¡Totalmente legal! */
+            display: flex; 
+            justify-content: center;
+            gap: 20px;
+            border-radius: 8px;
+        }
+
+        .sidebar-izq {
+            grid-area: sidebar-izq;
+            background-color: #0097e6;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .main {
+            grid-area: main;
+            background-color: #353b48;
+            padding: 30px;
+            border: 2px solid #718093;
+            border-radius: 8px;
+            line-height: 1.6;
+        }
+
+        .sidebar-der {
+            grid-area: sidebar-der;
+            background-color: #c23616;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .footer {
+            grid-area: footer;
+            background-color: #718093;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+        /* 4. LA CAÍDA DE MANDÍBULAS (Media Query para Móviles) */
+        @media (max-width: 768px) {
+            .grid-container {
+                /* Redefinimos TODO el layout aplastándolo a 1 columna */
+                grid-template-columns: 1fr; 
+                
+                /* Reordenamos las áreas visuales sin tocar el HTML */
+                grid-template-areas:
+                    "header"
+                    "nav"
+                    "main"
+                    "sidebar-izq"
+                    "sidebar-der"
+                    "footer";
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="grid-container">
+        <header class="header">
+            <h1>El Periódico de Web I</h1>
+        </header>
+
+        <nav class="nav">
+            <a href="#" style="color:white; text-decoration:none; font-weight:bold;">Inicio</a>
+            <a href="#" style="color:white; text-decoration:none; font-weight:bold;">Noticias</a>
+            <a href="#" style="color:white; text-decoration:none; font-weight:bold;">Contacto</a>
+        </nav>
+
+        <aside class="sidebar-izq">
+            <h3>Publicidad</h3>
+            <p style="margin-top:10px; font-size: 0.9em;">Aprende CSS de verdad y deja de sufrir con código ajeno.</p>
+        </aside>
+
+        <main class="main">
+            <h2>Noticia: Alumnos descubren que CSS tiene lógica</h2>
+            <p style="margin-top: 15px; color: #dcdde1;">En un evento sin precedentes, un grupo de estudiantes logró estructurar una página web entera sin recurrir a StackOverflow ni pedirle a una IA que les escupa código incomprensible.</p>
+            <p style="margin-top: 15px; color: #dcdde1;">El secreto, afirman los sobrevivientes, fue entender la propiedad <code>display: grid</code>, usar áreas visuales y dejar de ponerle márgenes negativos a todo para forzar los elementos a encajar.</p>
+        </main>
+
+        <aside class="sidebar-der">
+            <h3>Enlaces Útiles</h3>
+            <ul style="margin-top:10px; margin-left: 20px; font-size: 0.9em;">
+                <li>MDN Web Docs</li>
+                <li>CSS Tricks</li>
+            </ul>
+        </aside>
+
+        <footer class="footer">
+            <p>&copy; 2026 Auxiliatura Web I</p>
+        </footer>
+    </div>
+
+</body>
+</html>

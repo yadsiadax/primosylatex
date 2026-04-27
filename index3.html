@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Final - Flexbox en la Vida Real</title>
+    <style>
+        /* 1. EL SALVAVIDAS (Box Model) */
+        * {
+            box-sizing: border-box; /* Si apagas esto, los bordes y paddings destruyen el grid */
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: #1e272e;
+            color: #d2dae2;
+            padding: 40px 20px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #0fbcf9;
+        }
+
+        /* 2. EL PADRE PRINCIPAL (Contenedor de las tarjetas) */
+        .catalogo {
+            display: flex;
+            flex-wrap: wrap;       /* Permite que caigan a la siguiente línea si no caben */
+            gap: 20px;             /* La maravilla moderna: espacio perfecto sin márgenes extraños */
+            justify-content: center; /* Centra las tarjetas si sobran a los lados */
+        }
+
+        /* 3. EL HIJO Y PADRE SECUNDARIO (La Tarjeta) */
+        .tarjeta {
+            background-color: #2c3e50;
+            border: 2px solid #485460;
+            border-radius: 10px;
+            padding: 20px;
+            
+            /* Propiedades como HIJO del catálogo */
+            /* flex: grow | shrink | basis */
+            flex: 1 1 300px;  /* Crece si hay espacio, se encoge si falta, parte de 300px */
+            max-width: 350px; /* Límite para que no se estire de forma grotesca */
+
+            /* Propiedades como PADRE de sus elementos internos */
+            display: flex;
+            flex-direction: column; /* Apila el título, texto y botones en vertical */
+        }
+
+        /* 4. ELEMENTOS INTERNOS (Jugando con el orden y crecimiento) */
+        .etiqueta {
+            background-color: #ff3f34;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            
+            /* Rebelión de alineación y orden */
+            align-self: flex-start; /* Evita estirarse, se pega a la izquierda */
+            order: -1;              /* ¡Magia! Lo manda arriba del título aunque en el HTML esté abajo */
+        }
+
+        .titulo {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: white;
+            order: 0;
+        }
+
+        .descripcion {
+            font-size: 0.95rem;
+            color: #808e9b;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            
+            /* Toma todo el espacio vertical sobrante. 
+               Esto empuja el bloque de botones siempre hacia el fondo de la tarjeta */
+            flex-grow: 1; 
+        }
+
+        .botones-footer {
+            display: flex;
+            justify-content: space-between; /* Lanza el precio a la izq y el botón a la der */
+            align-items: center;            /* Los centra verticalmente entre sí */
+            margin-top: auto; 
+        }
+
+        .precio {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #0be881;
+        }
+
+        .btn {
+            background-color: #0fbcf9;
+            color: #1e272e;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Catálogo de Cursos Web I</h2>
+
+    <div class="catalogo">
+        <div class="tarjeta">
+            <h3 class="titulo">Sobreviviendo al Box Model</h3>
+            <p class="descripcion">Aprende por qué tus divs miden más de lo que crees y cómo solucionarlo con una sola línea de código.</p>
+            <div class="etiqueta">¡Urgente!</div> <div class="botones-footer">
+                <span class="precio">Gratis</span>
+                <button class="btn">Inscribirse</button>
+            </div>
+        </div>
+
+        <div class="tarjeta">
+            <h3 class="titulo">Dominio Unidimensional</h3>
+            <p class="descripcion">Flexbox desde cero. Olvida los floats, los márgenes negativos y el sufrimiento de intentar centrar un div verticalmente. Esta descripción es intencionalmente más larga para demostrar cómo flex-grow empuja el footer hacia abajo igualando la altura de las tarjetas.</p>
+            
+            <div class="botones-footer">
+                <span class="precio">Vital</span>
+                <button class="btn">Ver Clase</button>
+            </div>
+        </div>
+
+        <div class="tarjeta">
+            <h3 class="titulo">Salto a Móvil (Responsive)</h3>
+            <p class="descripcion">Introducción a las Media Queries. Deja de hacer páginas que solo se ven bien en tu monitor de escritorio.</p>
+            <div class="etiqueta" style="background-color: #ffa801;">Próximo tema</div>
+            
+            <div class="botones-footer">
+                <span class="precio">Pendiente</span>
+                <button class="btn" style="background-color: #808e9b; cursor: not-allowed;">Bloqueado</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
